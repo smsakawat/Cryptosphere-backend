@@ -25,12 +25,10 @@ async function run() {
     const newsCollection = database.collection("news");
 
     //get news  for specific user
-    app.get("/bookmarks/news/:email", async (req, res) => {
+    app.get("/bookmarks/cryptos/:email", async (req, res) => {
       const query = { email: req.params.email };
       const cryptos = await cryptosCollection.find(query).toArray();
-      res.status(200).json({
-        cryptos,
-      });
+      res.json({ cryptos });
     });
 
     // post api for adding a cylcle by admin
@@ -41,12 +39,12 @@ async function run() {
       res.json(result);
     });
 
-    // app.delete("/bookmarks/cryptos/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: ObjectId(id) };
-    //   const result = await bicycleCollection.deleteOne(query);
-    //   res.json(result);
-    // });
+    app.delete("/bookmarks/cryptos/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await cryptosCollection.deleteOne(query);
+      res.json(result);
+    });
 
     // app.delete("/bookmarks/news/:id", async (req, res) => {
     //   const id = req.params.id;
